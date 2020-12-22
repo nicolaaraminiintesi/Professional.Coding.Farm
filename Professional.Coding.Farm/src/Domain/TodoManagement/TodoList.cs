@@ -28,7 +28,7 @@ namespace Professional.Coding.Farm.Domain.TodoManagement
 
         public bool AtLeastOneItemToDo => TodoItems.Any(i => i.IsToDo);
 
-        public void Update(string title, Colour colour)
+        protected internal void Update(string title, Colour colour)
         {
             Title = title;
             Colour = colour;

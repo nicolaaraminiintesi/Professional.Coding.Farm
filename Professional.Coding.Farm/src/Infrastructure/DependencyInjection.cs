@@ -7,6 +7,8 @@ using System.Data;
 using Microsoft.Data.SqlClient;
 using Professional.Coding.Farm.Domain.TodoManagement;
 using Professional.Coding.Farm.Infrastructure.Persistence.TodoManagement;
+using Professional.Coding.Farm.Domain.NotificationManagement;
+using Professional.Coding.Farm.Infrastructure.Persistence.NotificationManagement;
 
 namespace Professional.Coding.Farm.Infrastructure
 {
@@ -32,6 +34,8 @@ namespace Professional.Coding.Farm.Infrastructure
             });
 
             services.AddScoped<ITodoListRepository, TodoListRepository>();
+            services.AddScoped<TodoListService, TodoListService>();
+            services.AddScoped<INotificationRepository, NotificationRepository>();
 
             return services;
         }

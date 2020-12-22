@@ -14,26 +14,21 @@ namespace Professional.Coding.Farm.Application.TodoManagement
         public string Title { get; set; }
 
         public string Colour { get; set; }
+        public int? NotificationDaysStartingFromNow { get; set; }
     }
 
     public class UpdateTodoListCommandHandler : IRequestHandler<UpdateTodoListCommand>
     {
-        private readonly ITodoListRepository repository;
+        private readonly TodoListService service;
 
-        public UpdateTodoListCommandHandler(ITodoListRepository repository)
+        public UpdateTodoListCommandHandler(TodoListService service)
         {
-            this.repository = repository;
+            this.service = service;
         }
 
         public async Task<Unit> Handle(UpdateTodoListCommand request, CancellationToken cancellationToken)
         {
-            TodoList todoList = await repository.GetByKey(request.Id);
-            Colour colour = Colour.GetByCode(request.Colour);
-
-            todoList.Update(request.Title, colour);
-
-            await repository.SaveChanges();
-
+            await service.Update(request.Id, request.Colour, request.Title, request.NotificationDaysStartingFromNow);
             return Unit.Value;
         }
     }

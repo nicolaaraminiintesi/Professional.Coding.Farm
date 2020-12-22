@@ -19,7 +19,6 @@
 
   <ItemGroup>
     <Folder Include="Persistence\MigrationScripts\" />
-    <Folder Include="ReadModel\" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Professional.Coding.Farm.Domain.NotificationManagement;
 using Professional.Coding.Farm.Domain.TodoManagement;
 using System.Reflection;
 
@@ -12,6 +13,7 @@ namespace Professional.Coding.Farm.Infrastructure.Persistence
         }
 
         public DbSet<TodoList> TodoLists { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

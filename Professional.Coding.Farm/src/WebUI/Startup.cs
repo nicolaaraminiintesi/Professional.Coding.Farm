@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NSwag.Generation.Processors.Security;
 using NSwag.AspNetCore;
+using Professional.Coding.Farm.WebUI.ExceptionsManagement;
 
 namespace Professional.Coding.Farm.WebUI
 {
@@ -65,6 +66,10 @@ namespace Professional.Coding.Farm.WebUI
             });
 
             app.UseRouting();
+
+            app.UseExceptionManagement();
+
+            app.UseDbContext();
 
             app.UseEndpoints(endpoints =>
             {
