@@ -2,5 +2,6 @@ CREATE VIEW getTodoLists_ui
 as
 select	Id,
 		Title,
-		Colour
+		Colour,
+		IsEnabled
 from	TodoLists;

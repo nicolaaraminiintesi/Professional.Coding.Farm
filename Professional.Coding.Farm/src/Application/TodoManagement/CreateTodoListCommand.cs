@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Professional.Coding.Farm.Infrastructure.Persistence;
 using Professional.Coding.Farm.Domain.TodoManagement;
 
-namespace Professional.Coding.Farm.Application.TodoLists.Commands.CreateTodoList
+namespace Professional.Coding.Farm.Application.TodoManagement
 {
     public partial class CreateTodoListCommand : IRequest<int>
     {

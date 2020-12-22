@@ -1,43 +1,63 @@
-﻿using Professional.Coding.Farm.Application.TodoLists.Commands.CreateTodoList;
-using Professional.Coding.Farm.Application.TodoLists.Commands.DeleteTodoList;
-using Professional.Coding.Farm.Application.TodoLists.Commands.UpdateTodoList;
-using Professional.Coding.Farm.Application.TodoLists.Queries.GetTodos;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Professional.Coding.Farm.Domain.TodoManagement;
+using Professional.Coding.Farm.Application.TodoManagement;
 
 namespace Professional.Coding.Farm.WebUI.Controllers
 {
     public class TodoListsController : ApiController
     {
         [HttpGet]
-        public async Task<IEnumerable<TodoListVm>> Get() 
+        public async Task<List<GetTodosQueryResult>> Get()
             => await Mediator.Send(new GetTodosQuery());
 
         [HttpPost]
-        public async Task<int> Create(CreateTodoListCommand command) 
+        public async Task<int> Create(CreateTodoListCommand command)
             => await Mediator.Send(command);
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult> Update(int id, UpdateTodoListCommand command)
-        {
-            if (id != command.Id)
-            {
-                return BadRequest();
-            }
+        [HttpPut]
+        public async Task Update(UpdateTodoListCommand command)
+            => await Mediator.Send(command);
 
-            await Mediator.Send(command);
+        [HttpPost("Enable")]
+        public async Task Enable(EnableTodoListCommand command)
+            => await Mediator.Send(command);
 
-            return NoContent();
-        }
+        [HttpPost("Disable")]
+        public async Task Disable(DisableTodoListCommand command)
+            => await Mediator.Send(command);
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
-        {
-            await Mediator.Send(new DeleteTodoListCommand { Id = id });
+        [HttpPost("GetItems")]
+        public async Task<List<GetTodosItemQueryResult>> GetItems(GetTodosItemQuery query)
+            => await Mediator.Send(query);
 
-            return NoContent();
-        }
+        [HttpPost("Item")]
+        public async Task CreateItem(CreateTodoItemCommand command)
+            => await Mediator.Send(command);
+
+        [HttpPost("Item/Enable")]
+        public async Task EnableItem(EnableTodoItemCommand command)
+            => await Mediator.Send(command);
+
+        [HttpPost("Item/Disable")]
+        public async Task DisableItem(DisableTodoItemCommand command)
+            => await Mediator.Send(command);
+
+        [HttpPut("Item")]
+        public async Task UpdateItem(UpdateTodoItemCommand command)
+            => await Mediator.Send(command);
+
+        [HttpPut("Item/AddNote")]
+        public async Task AddNote(SetNoteTodoItemCommand command)
+            => await Mediator.Send(command);
+
+        [HttpPut("Item/MarkAsDone")]
+        public async Task MarkAsDone(MarkAsDoneTodoItemCommand command)
+            => await Mediator.Send(command);
+
+        [HttpPut("Item/MarkAsNotDone")]
+        public async Task MarkAsNotDone(MarkAsNotDoneTodoItemCommand command)
+            => await Mediator.Send(command);
     }
 }

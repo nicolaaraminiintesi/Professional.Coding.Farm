@@ -15,11 +15,13 @@ namespace Professional.Coding.Farm.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
+            {
                 options.UseSqlServer(
                     configuration.GetConnectionString("DefaultConnection"),
-                    b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+                    b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName));
 
-            services.AddAuthentication().AddIdentityServerJwt();
+                options.UseLazyLoadingProxies();
+            });
 
             services.AddScoped<IDbConnection>(serviceProvider =>
             {

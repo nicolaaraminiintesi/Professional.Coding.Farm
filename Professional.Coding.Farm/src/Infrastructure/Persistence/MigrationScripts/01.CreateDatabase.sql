@@ -4,6 +4,8 @@ create table TodoLists(
 						Id [int] NOT NULL IDENTITY(1,1),
 						Title nvarchar(500) NOT NULL,
 						Colour nvarchar(1),
+						IsEnabled bit NOT NULL,
+						Version timestamp NOT NULL,
 						PRIMARY KEY CLUSTERED 
 							(
 								Id ASC
@@ -14,10 +16,9 @@ create table TodoItems(
 						Id [int] NOT NULL IDENTITY(1,1),
 						TodoListId INT NOT NULL,
 						Title nvarchar(500) NOT NULL,
-						Note nvarchar(1000) NOT NULL,
+						Note nvarchar(1000) NULL,
 						IsDone bit NOT NULL,
-						Reminder datetime NULL,
-						PriorityLevel int NOT NULL,
+						IsEnabled bit NOT NULL,
 						PRIMARY KEY CLUSTERED 
 							(
 								Id ASC

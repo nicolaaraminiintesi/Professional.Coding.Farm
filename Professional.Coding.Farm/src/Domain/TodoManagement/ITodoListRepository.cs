@@ -9,5 +9,6 @@ namespace Professional.Coding.Farm.Domain.TodoManagement
     {
         void Add(TodoList todoList);
         Task SaveChanges();
+        Task<TodoList> GetByKey(int id);
     }
 }

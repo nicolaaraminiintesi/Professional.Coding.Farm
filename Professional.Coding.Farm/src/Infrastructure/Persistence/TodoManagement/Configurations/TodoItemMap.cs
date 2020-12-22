@@ -1,16 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Professional.Coding.Farm.Domain.TodoManagement;
 
 namespace Professional.Coding.Farm.Infrastructure.TodoManagement
 {
-    public class TodoItemConfiguration : IEntityTypeConfiguration<TodoItem>
+    public class TodoItemMap : IEntityTypeConfiguration<TodoItem>
     {
         public void Configure(EntityTypeBuilder<TodoItem> builder)
         {
-            builder.Property(t => t.Title)
-                .HasMaxLength(200)
-                .IsRequired();
+            builder.ToTable("TodoItems");
+
+            builder.HasKey(x => x.Id);
+
+            builder.Ignore(x => x.TodoList);
         }
     }
 }

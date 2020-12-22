@@ -6,11 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NSwag;
 using NSwag.Generation.Processors.Security;
-using System.Linq;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using NSwag.AspNetCore;
 
 namespace Professional.Coding.Farm.WebUI

@@ -3,12 +3,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using Professional.Coding.Farm.Infrastructure.Persistence;
 using System;
+using Professional.Coding.Farm.Domain.TodoManagement;
 
-namespace Professional.Coding.Farm.Application.TodoItems.Commands.UpdateTodoItem
+namespace Professional.Coding.Farm.Application.TodoManagement
 {
     public partial class UpdateTodoItemCommand : IRequest
     {
         public int Id { get; set; }
+
+        public int ListId { get; set; }
 
         public string Title { get; set; }
 
@@ -17,26 +20,20 @@ namespace Professional.Coding.Farm.Application.TodoItems.Commands.UpdateTodoItem
 
     public class UpdateTodoItemCommandHandler : IRequestHandler<UpdateTodoItemCommand>
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ITodoListRepository repository;
 
-        public UpdateTodoItemCommandHandler(ApplicationDbContext context)
+        public UpdateTodoItemCommandHandler(ITodoListRepository repository)
         {
-            _context = context;
+            this.repository = repository;
         }
 
         public async Task<Unit> Handle(UpdateTodoItemCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _context.TodoItems.FindAsync(request.Id);
+            TodoList list = await repository.GetByKey(request.ListId);
 
-            if (entity == null)
-            {
-                throw new InvalidOperationException($"TodoItem with id {request.Id} not found");
-            }
+            list.UpdateItem(request.Id, request.Title);
 
-            entity.Title = request.Title;
-            entity.Done = request.Done;
-
-            await _context.SaveChangesAsync(cancellationToken);
+            await repository.SaveChanges();
 
             return Unit.Value;
         }
